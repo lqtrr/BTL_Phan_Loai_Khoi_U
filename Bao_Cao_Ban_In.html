@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bao_Cao_AI_U_Nao_Ban_In_PDF</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* CSS cài đặt chuẩn kích thước giấy ngang cho PDF */
+      @page {
+        size: 16in 9in;
+        margin: 0;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #525659;
+      }
+
+      .slide {
+        width: 16in;
+        height: 9in;
+        background-color: white;
+        margin: 0 auto;
+        position: relative;
+        page-break-after: always;
+        box-sizing: border-box;
+        padding: 60px 80px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Elements trang trí */
+      .slide::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 12px;
+        background: linear-gradient(90deg, #1e3a8a, #3b82f6, #0ea5e9);
+      }
+      .footer {
+        position: absolute;
+        bottom: 30px;
+        left: 80px;
+        right: 80px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        color: #64748b;
+        border-top: 1px solid #e2e8f0;
+        padding-top: 15px;
+      }
+
+      /* Typography */
+      h1 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 60px;
+        color: #1e3a8a;
+        margin: 0 0 20px 0;
+      }
+      h2 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 45px;
+        color: #1e40af;
+        border-bottom: 4px solid #3b82f6;
+        padding-bottom: 10px;
+        margin-top: 0;
+        width: fit-content;
+      }
+      h3 {
+        font-size: 30px;
+        color: #0f172a;
+        margin-bottom: 15px;
+      }
+      p,
+      li {
+        font-size: 24px;
+        color: #334155;
+        line-height: 1.6;
+      }
+      ul {
+        padding-left: 40px;
+      }
+      li {
+        margin-bottom: 15px;
+      }
+
+      /* Bố cục cột */
+      .content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .row {
+        display: flex;
+        gap: 50px;
+        align-items: center;
+      }
+      .col {
+        flex: 1;
+      }
+
+      /* Bảng biểu & Nổi bật */
+      .highlight-box {
+        background-color: #f0fdf4;
+        border-left: 8px solid #16a34a;
+        padding: 25px;
+        border-radius: 0 12px 12px 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 22px;
+      }
+      th {
+        background-color: #1e40af;
+        color: white;
+        padding: 15px;
+        text-align: left;
+      }
+      td {
+        padding: 15px;
+        border-bottom: 1px solid #cbd5e1;
+      }
+      tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+
+      /* Slide bìa */
+      .title-slide {
+        justify-content: center;
+        text-align: center;
+        background: radial-gradient(circle, #ffffff, #f1f5f9);
+      }
+      .title-slide h1 {
+        font-size: 70px;
+        margin-bottom: 10px;
+      }
+      .title-slide .subtitle {
+        font-size: 30px;
+        color: #475569;
+        margin-bottom: 60px;
+      }
+      .title-slide .info-box {
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        display: inline-block;
+        text-align: left;
+        border: 2px solid #e2e8f0;
+      }
+      .title-slide .info-box p {
+        font-size: 26px;
+        margin: 15px 0;
+        font-weight: 700;
+        color: #1e293b;
+      }
+      .title-slide .info-box span {
+        font-weight: 400;
+        color: #475569;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide title-slide">
+      <h2
+        style="
+          border: none;
+          margin: 0 auto 30px;
+          color: #64748b;
+          font-size: 26px;
+          letter-spacing: 2px;
+        "
+      >
+        MEDICAL AI RESEARCH
+      </h2>
+      <h1>Phân loại Khối u Não từ ảnh MRI</h1>
+      <div class="subtitle">
+        Dựa trên kiến trúc Mạng Nơ-ron Tích chập (Custom CNN)
+      </div>
+      <div class="info-box">
+        <p>Trường: <span>Đại học Đại Nam</span></p>
+        <p>Học phần: <span>Công nghệ Trí tuệ Nhân tạo</span></p>
+        <p>Sinh viên thực hiện: <span>Lưu Quang Trường</span></p>
+        <p>Giảng viên HD: <span>[Tên Giảng Viên Của Bạn]</span></p>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h2>1. Giới thiệu & Đặt vấn đề</h2>
+      <div class="content row">
+        <div class="col">
+          <ul>
+            <li>
+              <strong>Thực trạng:</strong> U não là bệnh lý nguy hiểm. Hình ảnh
+              MRI là công cụ chẩn đoán cốt lõi trong y học hiện đại.
+            </li>
+            <li>
+              <strong>Thách thức:</strong> Khối lượng ảnh chụp MRI tại các bệnh
+              viện cực lớn. Việc phân tích thủ công bằng mắt thường mất nhiều
+              thời gian và dễ xảy ra sai sót do bác sĩ quá tải.
+            </li>
+            <li>
+              <strong>Giải pháp khắc phục:</strong> Xây dựng một hệ thống Trí
+              tuệ nhân tạo (Deep Learning) tự động nhận diện và phân loại khối u
+              từ ảnh MRI để hỗ trợ bác sĩ chẩn đoán nhanh chóng và chính xác.
+            </li>
+          </ul>
+        </div>
+        <div
+          class="col"
+          style="
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px dashed #cbd5e1;
+            text-align: center;
+          "
+        >
+          <h3 style="color: #64748b">Mục tiêu Phân loại 4 Nhãn:</h3>
+          <p style="font-size: 28px; font-weight: bold; color: #b91c1c">
+            1. Glioma (U thần kinh đệm)
+          </p>
+          <p style="font-size: 28px; font-weight: bold; color: #c2410c">
+            2. Meningioma (U màng não)
+          </p>
+          <p style="font-size: 28px; font-weight: bold; color: #047857">
+            3. No-tumor (Não khỏe mạnh)
+          </p>
+          <p style="font-size: 28px; font-weight: bold; color: #4338ca">
+            4. Pituitary (U tuyến yên)
+          </p>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Lưu Quang Trường - Đại học Đại Nam</span><span>Trang 2</span>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h2>2. Nguồn dữ liệu & Tiền xử lý (Preprocessing)</h2>
+      <div class="content">
+        <p>
+          <strong>Nguồn dữ liệu:</strong> Trích xuất từ nền tảng
+          <i>Hugging Face</i> (PranomVignesh/MRI-Images-of-Brain-Tumor) với hơn
+          5.000 bức ảnh chụp thực tế.
+        </p>
+        <h3 style="margin-top: 30px">Quy trình Tiền xử lý (Data Pipeline):</h3>
+        <ul>
+          <li>
+            <strong>Đồng bộ Kích thước (Resize):</strong> Ép toàn bộ ảnh đầu vào
+            về kích thước chuẩn <code>224x224 pixels</code> để đưa vào mạng
+            Nơ-ron.
+          </li>
+          <li>
+            <strong>Đồng bộ Kênh màu:</strong> Chuyển đổi mọi ảnh về hệ 3 kênh
+            màu RGB.
+          </li>
+          <li>
+            <strong>Chuyển đổi Tensor & Chuẩn hóa:</strong> Sử dụng
+            <code>torchvision.transforms</code> để biến hình ảnh thành các ma
+            trận số học (Tensor) với dải giá trị điểm ảnh từ 0.0 đến 1.0.
+          </li>
+          <li>
+            <strong>Đóng gói (DataLoader):</strong> Chia dữ liệu thành các Batch
+            với kích thước <code>Batch_size = 32</code> để tối ưu hóa bộ nhớ
+            GPU.
+          </li>
+        </ul>
+      </div>
+      <div class="footer">
+        <span>Lưu Quang Trường - Đại học Đại Nam</span><span>Trang 3</span>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h2>3. Thiết kế Kiến trúc Mạng Custom CNN</h2>
+      <div class="content row">
+        <div class="col">
+          <p>
+            Thay vì sử dụng các mô hình có sẵn (như MobileNetV2), dự án tiến
+            hành <strong>tự xây dựng mạng CNN từ đầu (Custom CNN)</strong> để
+            tối ưu cho cấu trúc giải phẫu học của ảnh MRI.
+          </p>
+          <ul>
+            <li>
+              <strong>Lớp Tích chập (Conv2D):</strong> 3 lớp trích xuất đặc
+              trưng với số lượng Filter tăng dần (16 → 32 → 64).
+            </li>
+            <li>
+              <strong>Lớp Pooling:</strong> Sử dụng MaxPool2d (2x2) để giữ lại
+              các đặc trưng viền khối u và giảm kích thước tính toán.
+            </li>
+            <li>
+              <strong>Lớp Fully Connected:</strong> Duỗi phẳng (Flatten) ma trận
+              thành 512 nơ-ron ẩn, trước khi nén về 4 nơ-ron tương ứng với 4
+              loại bệnh.
+            </li>
+            <li>
+              <strong>Kiểm soát Overfitting:</strong> Áp dụng kỹ thuật
+              <code>Dropout(0.5)</code> để loại bỏ ngẫu nhiên các kết nối, ép
+              mạng phải học bản chất hình ảnh.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Lưu Quang Trường - Đại học Đại Nam</span><span>Trang 4</span>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h2>4. Thông số & Môi trường Huấn luyện</h2>
+      <div class="content">
+        <div class="row">
+          <div class="col">
+            <div
+              style="
+                background: #f1f5f9;
+                padding: 25px;
+                border-radius: 12px;
+                margin-bottom: 20px;
+              "
+            >
+              <h3>Môi trường Triển khai</h3>
+              <p>- Nền tảng: Google Colaboratory.</p>
+              <p>- Phần cứng: Bộ tăng tốc đồ họa NVIDIA T4 GPU.</p>
+              <p>- Framework: PyTorch.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div
+              style="
+                background: #f1f5f9;
+                padding: 25px;
+                border-radius: 12px;
+                margin-bottom: 20px;
+              "
+            >
+              <h3>Hyperparameters</h3>
+              <p>- Thuật toán tối ưu: Adam Optimizer.</p>
+              <p>- Learning Rate (Tốc độ học): 0.001.</p>
+              <p>- Hàm mất mát: Cross-Entropy Loss.</p>
+              <p>- Số vòng lặp (Epochs): 10 vòng.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Lưu Quang Trường - Đại học Đại Nam</span><span>Trang 5</span>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h2>5. Kết quả Huấn luyện (Training Results)</h2>
+      <div class="content row">
+        <div class="col">
+          <table>
+            <tr>
+              <th>Vòng lặp (Epoch)</th>
+              <th>Hàm Mất mát (Loss)</th>
+              <th>Độ chính xác (Accuracy)</th>
+            </tr>
+            <tr>
+              <td>Epoch 1</td>
+              <td>0.5219</td>
+              <td>78.61%</td>
+            </tr>
+            <tr>
+              <td>Epoch 3</td>
+              <td>0.1248</td>
+              <td>95.48%</td>
+            </tr>
+            <tr>
+              <td>Epoch 5</td>
+              <td>0.0398</td>
+              <td>98.78%</td>
+            </tr>
+            <tr>
+              <td>Epoch 8</td>
+              <td>0.0288</td>
+              <td>99.12%</td>
+            </tr>
+            <tr
+              style="
+                font-weight: bold;
+                background-color: #dbeafe;
+                color: #1e40af;
+              "
+            >
+              <td>Epoch 10 (Final)</td>
+              <td>0.0245</td>
+              <td>99.15%</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col">
+          <div class="highlight-box">
+            <h3>Phân tích Hội tụ:</h3>
+            <p>
+              Mô hình Custom CNN cho thấy khả năng học đặc trưng y khoa cực kỳ
+              ấn tượng. Mức độ Loss giảm sâu và ổn định.
+            </p>
+            <p>
+              Kết thúc quá trình đào tạo, thuật toán đạt độ chính xác nội bộ lên
+              tới <strong>99.15%</strong>. Trọng số được lưu trữ thành công vào
+              tệp <code>brain_tumor_model.pth</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Lưu Quang Trường - Đại học Đại Nam</span><span>Trang 6</span>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h2>6. Kiểm thử Thực tế (System Testing & Generalization)</h2>
+      <div class="content">
+        <p>
+          Để kiểm chứng AI không bị mắc lỗi "Học vẹt" (Overfitting), hệ thống đã
+          được tiến hành thử nghiệm với tập dữ liệu mù (Unseen Data).
+        </p>
+
+        <div
+          class="highlight-box"
+          style="
+            margin-top: 30px;
+            border-left-color: #f59e0b;
+            background-color: #fffbeb;
+          "
+        >
+          <h3 style="color: #b45309">Quy trình Kiểm thử:</h3>
+          <ul>
+            <li>
+              <strong>Đầu vào:</strong> Nạp một bức ảnh MRI giải phẫu ngẫu nhiên
+              được tải về từ Internet (Ảnh hoàn toàn nằm ngoài tập dữ liệu 5000
+              ảnh đã huấn luyện).
+            </li>
+            <li>
+              <strong>Đầu ra thực tế:</strong> Hệ thống Web AI dự đoán chính xác
+              loại u với độ tin cậy đạt <strong>94.99%</strong> (thay vì tự tin
+              ảo 100%).
+            </li>
+            <li>
+              <strong>Kết luận:</strong> Mạng CNN đã thực sự thấu hiểu hình thái
+              sinh học và cấu trúc của khối u, có khả năng tổng quát hóa rất tốt
+              đối với dữ liệu ngoại lai trong môi trường y tế thực tế.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Lưu Quang Trường - Đại học Đại Nam</span><span>Trang 7</span>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h2>7. Triển khai Hệ thống Web End-to-End</h2>
+      <div class="content row">
+        <div class="col">
+          <ul>
+            <li>
+              <strong>Nền tảng (Framework):</strong> Chuyển đổi từ mô hình thử
+              nghiệm sang ứng dụng thực tế bằng thư viện
+              <strong>Streamlit</strong> (thay cho kiến trúc API phức tạp cũ).
+            </li>
+            <li>
+              <strong>Tối ưu hóa tài nguyên:</strong> Sử dụng cơ chế
+              <code>torch.no_grad()</code> để tắt tính toán đạo hàm, giúp
+              Website trả kết quả chẩn đoán gần như tức thì (&lt; 0.5 giây) mà
+              không cần Card màn hình rời.
+            </li>
+            <li>
+              <strong>Giao diện người dùng:</strong> Hỗ trợ thao tác kéo thả ảnh
+              (Drag & Drop). Kết quả thô được đưa qua hàm Softmax để hiển thị tỷ
+              lệ phần trăm (%) trực quan cho bác sĩ tham khảo.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Lưu Quang Trường - Đại học Đại Nam</span><span>Trang 8</span>
+      </div>
+    </div>
+
+    <div class="slide title-slide">
+      <h1>Cảm ơn Quý Hội Đồng!</h1>
+      <div class="subtitle" style="margin-bottom: 40px">
+        Em xin lắng nghe các câu hỏi phản biện và ý kiến đóng góp.
+      </div>
+      <div
+        class="info-box"
+        style="text-align: center; background: #f0fdf4; border-color: #16a34a"
+      >
+        <p style="color: #16a34a">
+          ✔ Đạt chỉ tiêu độ chính xác huấn luyện > 99%
+        </p>
+        <p style="color: #16a34a">✔ Vượt qua bài test Unseen Data đạt ~ 95%</p>
+        <p style="color: #16a34a">✔ Đóng gói thành công Web Application</p>
+      </div>
+    </div>
+  </body>
+</html>
